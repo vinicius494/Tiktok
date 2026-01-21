@@ -6,115 +6,147 @@
 <title>Amor da minha vida ❤️</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-  background: black;
-  overflow: hidden;
+  background:black;
+  color:white;
   font-family: Arial, sans-serif;
+  overflow:hidden;
 }
 
-#feed {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+.feed {
+  height:100vh;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
 }
 
 .post {
-  height: 100vh;
-  position: relative;
-  scroll-snap-align: start;
+  height:100vh;
+  position:relative;
+  scroll-snap-align:start;
 }
 
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
+video {
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-/* ÍCONES estilo TikTok */
+/* Ícones */
 .icons {
-  position: absolute;
-  right: 12px;
-  bottom: 90px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  z-index: 10;
+  position:absolute;
+  right:12px;
+  bottom:100px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
 }
 
 .icon {
-  color: white;
-  text-align: center;
-  font-size: 26px;
+  font-size:28px;
+  text-align:center;
+  cursor:pointer;
 }
 
 .icon span {
-  display: block;
-  font-size: 12px;
-  margin-top: 4px;
+  display:block;
+  font-size:12px;
+}
+
+/* Comentários */
+.comments {
+  position:fixed;
+  bottom:-100%;
+  left:0;
+  width:100%;
+  height:60%;
+  background:#111;
+  border-radius:20px 20px 0 0;
+  transition:0.3s;
+  padding:15px;
+}
+
+.comments.active {
+  bottom:0;
+}
+
+.comment {
+  margin-bottom:10px;
+  font-size:14px;
+}
+
+.close {
+  text-align:center;
+  margin-bottom:10px;
+  color:#aaa;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div id="feed">
+<div class="feed">
 
-  <!-- VIDEO 1 -->
   <div class="post">
-    <iframe src="https://streamable.com/e/bhdexl?autoplay=0&muted=0"></iframe>
+    <video src="videos/video1.mp4" loop></video>
     <div class="icons">
-      <div class="icon">❤️<span>1.2M</span></div>
-      <div class="icon">💬<span>8.4K</span></div>
+      <div class="icon" onclick="like(this)">❤️<span>1.2M</span></div>
+      <div class="icon" onclick="openComments()">💬<span>8.4K</span></div>
       <div class="icon">🔁<span>3.1K</span></div>
     </div>
   </div>
 
-  <!-- VIDEO 2 -->
   <div class="post">
-    <iframe src="https://streamable.com/e/5qa83d?autoplay=0&muted=0"></iframe>
+    <video src="videos/video2.mp4" loop></video>
     <div class="icons">
-      <div class="icon">❤️<span>980K</span></div>
-      <div class="icon">💬<span>6.1K</span></div>
+      <div class="icon" onclick="like(this)">❤️<span>980K</span></div>
+      <div class="icon" onclick="openComments()">💬<span>6.1K</span></div>
       <div class="icon">🔁<span>2.7K</span></div>
-    </div>
-  </div>
-
-  <!-- VIDEO 3 -->
-  <div class="post">
-    <iframe src="https://streamable.com/e/chv1zt?autoplay=0&muted=0"></iframe>
-    <div class="icons">
-      <div class="icon">❤️<span>2.3M</span></div>
-      <div class="icon">💬<span>12K</span></div>
-      <div class="icon">🔁<span>5.4K</span></div>
     </div>
   </div>
 
 </div>
 
+<!-- Comentários fake -->
+<div class="comments" id="comments">
+  <div class="close" onclick="closeComments()">⬇️ fechar</div>
+  <div class="comment">😍 melhor casal do mundo</div>
+  <div class="comment">❤️ casal perfeito demais</div>
+  <div class="comment">😭 que coisa linda</div>
+  <div class="comment">🔥 vocês combinam muito</div>
+  <div class="comment">💍 já quero casamento</div>
+</div>
+
 <script>
-const feed = document.getElementById('feed');
-const iframes = document.querySelectorAll('iframe');
+const videos = document.querySelectorAll("video");
 
-feed.addEventListener('scroll', () => {
-  iframes.forEach(iframe => {
-    iframe.contentWindow.postMessage('{"method":"pause"}', '*');
-  });
-
-  const posts = document.querySelectorAll('.post');
-  posts.forEach(post => {
-    const rect = post.getBoundingClientRect();
-    if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
-      const iframe = post.querySelector('iframe');
-      iframe.contentWindow.postMessage('{"method":"play"}', '*');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const video = entry.target;
+    if (entry.isIntersecting) {
+      video.play();
+    } else {
+      video.pause();
     }
   });
-});
+}, { threshold: 0.6 });
+
+videos.forEach(video => observer.observe(video));
+
+function openComments() {
+  document.getElementById("comments").classList.add("active");
+}
+
+function closeComments() {
+  document.getElementById("comments").classList.remove("active");
+}
+
+function like(el) {
+  el.style.transform = "scale(1.3)";
+  setTimeout(() => el.style.transform = "scale(1)", 200);
+}
 </script>
 
 </body>

@@ -6,77 +6,83 @@
 <title>Amor da minha vida ❤️</title>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
 
-body {
+body{
   background:black;
   color:white;
-  font-family: Arial, sans-serif;
+  font-family:Arial, sans-serif;
   overflow:hidden;
 }
 
-.feed {
+.feed{
   height:100vh;
   overflow-y:scroll;
   scroll-snap-type:y mandatory;
 }
 
-.post {
+.post{
   height:100vh;
   position:relative;
   scroll-snap-align:start;
 }
 
-video {
+video{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
 /* Ícones */
-.icons {
+.icons{
   position:absolute;
   right:12px;
-  bottom:100px;
+  bottom:120px;
   display:flex;
   flex-direction:column;
-  gap:20px;
+  gap:22px;
 }
 
-.icon {
-  font-size:28px;
+.icon{
+  font-size:30px;
   text-align:center;
   cursor:pointer;
 }
 
-.icon span {
+.icon span{
   display:block;
   font-size:12px;
 }
 
 /* Comentários */
-.comments {
+.comments{
   position:fixed;
   bottom:-100%;
   left:0;
   width:100%;
-  height:60%;
+  height:65%;
   background:#111;
   border-radius:20px 20px 0 0;
-  transition:0.3s;
+  transition:.3s;
   padding:15px;
+  overflow-y:auto;
 }
 
-.comments.active {
+.comments.active{
   bottom:0;
 }
 
-.comment {
-  margin-bottom:10px;
+.comment{
+  margin-bottom:12px;
   font-size:14px;
 }
 
-.close {
+.user{
+  color:#aaa;
+  font-size:13px;
+}
+
+.close{
   text-align:center;
   margin-bottom:10px;
   color:#aaa;
@@ -89,6 +95,7 @@ video {
 
 <div class="feed">
 
+  <!-- POST 1 -->
   <div class="post">
     <video src="videos/video1.mp4" loop></video>
     <div class="icons">
@@ -98,6 +105,7 @@ video {
     </div>
   </div>
 
+  <!-- POST 2 -->
   <div class="post">
     <video src="videos/video2.mp4" loop></video>
     <div class="icons">
@@ -109,43 +117,48 @@ video {
 
 </div>
 
-<!-- Comentários fake -->
+<!-- COMENTÁRIOS -->
 <div class="comments" id="comments">
   <div class="close" onclick="closeComments()">⬇️ fechar</div>
-  <div class="comment">😍 melhor casal do mundo</div>
-  <div class="comment">❤️ casal perfeito demais</div>
-  <div class="comment">😭 que coisa linda</div>
-  <div class="comment">🔥 vocês combinam muito</div>
-  <div class="comment">💍 já quero casamento</div>
+
+  <div class="comment"><span class="user">@joaosilva</span><br>casal perfeito demais 😍</div>
+  <div class="comment"><span class="user">@annaluiza</span><br>queria um amor assim 😭</div>
+  <div class="comment"><span class="user">@lucas_07</span><br>melhor casal do mundo</div>
+  <div class="comment"><span class="user">@mari.santos</span><br>vocês combinam muito ❤️</div>
+  <div class="comment"><span class="user">@pedro_r</span><br>isso sim é amor de verdade</div>
+  <div class="comment"><span class="user">@biazinha</span><br>lindos demais 😍😍</div>
+  <div class="comment"><span class="user">@rafael_oliveira</span><br>já quero casamento 💍</div>
+  <div class="comment"><span class="user">@jessica</span><br>meu feed precisava disso</div>
+  <div class="comment"><span class="user">@tiago</span><br>que vibe boa 🔥</div>
 </div>
 
 <script>
 const videos = document.querySelectorAll("video");
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    const video = entry.target;
-    if (entry.isIntersecting) {
-      video.play();
-    } else {
-      video.pause();
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    const v = entry.target;
+    if(entry.isIntersecting){
+      v.play();
+    }else{
+      v.pause();
     }
   });
-}, { threshold: 0.6 });
+},{threshold:0.6});
 
-videos.forEach(video => observer.observe(video));
+videos.forEach(v=>observer.observe(v));
 
-function openComments() {
+function openComments(){
   document.getElementById("comments").classList.add("active");
 }
 
-function closeComments() {
+function closeComments(){
   document.getElementById("comments").classList.remove("active");
 }
 
-function like(el) {
-  el.style.transform = "scale(1.3)";
-  setTimeout(() => el.style.transform = "scale(1)", 200);
+function like(el){
+  el.style.transform="scale(1.3)";
+  setTimeout(()=>el.style.transform="scale(1)",200);
 }
 </script>
 

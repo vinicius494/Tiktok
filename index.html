@@ -15,6 +15,7 @@
 body {
   background: black;
   overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
 #feed {
@@ -25,6 +26,7 @@ body {
 
 .post {
   height: 100vh;
+  position: relative;
   scroll-snap-align: start;
 }
 
@@ -33,6 +35,29 @@ iframe {
   height: 100%;
   border: none;
 }
+
+/* ÍCONES estilo TikTok */
+.icons {
+  position: absolute;
+  right: 12px;
+  bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 10;
+}
+
+.icon {
+  color: white;
+  text-align: center;
+  font-size: 26px;
+}
+
+.icon span {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+}
 </style>
 </head>
 
@@ -40,47 +65,57 @@ iframe {
 
 <div id="feed">
 
+  <!-- VIDEO 1 -->
   <div class="post">
-    <iframe src="https://streamable.com/e/bhdexl?autoplay=1&muted=1"></iframe>
+    <iframe src="https://streamable.com/e/bhdexl?autoplay=0&muted=0"></iframe>
+    <div class="icons">
+      <div class="icon">❤️<span>1.2M</span></div>
+      <div class="icon">💬<span>8.4K</span></div>
+      <div class="icon">🔁<span>3.1K</span></div>
+    </div>
   </div>
 
+  <!-- VIDEO 2 -->
   <div class="post">
-    <iframe src="https://streamable.com/e/5qa83d?autoplay=1&muted=1"></iframe>
+    <iframe src="https://streamable.com/e/5qa83d?autoplay=0&muted=0"></iframe>
+    <div class="icons">
+      <div class="icon">❤️<span>980K</span></div>
+      <div class="icon">💬<span>6.1K</span></div>
+      <div class="icon">🔁<span>2.7K</span></div>
+    </div>
   </div>
 
+  <!-- VIDEO 3 -->
   <div class="post">
-    <iframe src="https://streamable.com/e/chv1zt?autoplay=1&muted=1"></iframe>
-  </div>
-
-  <div class="post">
-    <iframe src="https://streamable.com/e/kvnzbz?autoplay=1&muted=1"></iframe>
-  </div>
-
-  <div class="post">
-    <iframe src="https://streamable.com/e/4urpkh?autoplay=1&muted=1"></iframe>
-  </div>
-
-  <div class="post">
-    <iframe src="https://streamable.com/e/s259io?autoplay=1&muted=1"></iframe>
-  </div>
-
-  <div class="post">
-    <iframe src="https://streamable.com/e/d1jj5m?autoplay=1&muted=1"></iframe>
-  </div>
-
-  <div class="post">
-    <iframe src="https://streamable.com/e/uhp15l?autoplay=1&muted=1"></iframe>
-  </div>
-
-  <div class="post">
-    <iframe src="https://streamable.com/e/340414?autoplay=1&muted=1"></iframe>
-  </div>
-
-  <div class="post">
-    <iframe src="https://streamable.com/e/u5fc47?autoplay=1&muted=1"></iframe>
+    <iframe src="https://streamable.com/e/chv1zt?autoplay=0&muted=0"></iframe>
+    <div class="icons">
+      <div class="icon">❤️<span>2.3M</span></div>
+      <div class="icon">💬<span>12K</span></div>
+      <div class="icon">🔁<span>5.4K</span></div>
+    </div>
   </div>
 
 </div>
+
+<script>
+const feed = document.getElementById('feed');
+const iframes = document.querySelectorAll('iframe');
+
+feed.addEventListener('scroll', () => {
+  iframes.forEach(iframe => {
+    iframe.contentWindow.postMessage('{"method":"pause"}', '*');
+  });
+
+  const posts = document.querySelectorAll('.post');
+  posts.forEach(post => {
+    const rect = post.getBoundingClientRect();
+    if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+      const iframe = post.querySelector('iframe');
+      iframe.contentWindow.postMessage('{"method":"play"}', '*');
+    }
+  });
+});
+</script>
 
 </body>
 </html>

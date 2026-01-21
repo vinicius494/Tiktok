@@ -10,7 +10,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
@@ -27,36 +26,12 @@ body {
 .post {
   height: 100vh;
   scroll-snap-align: start;
-  position: relative;
 }
 
-video {
+iframe {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-.ui {
-  position: absolute;
-  right: 12px;
-  bottom: 120px;
-  color: white;
-  text-align: center;
-  font-size: 22px;
-}
-
-.ui div {
-  margin-bottom: 20px;
-}
-
-.comments {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
-  color: white;
-  font-size: 14px;
+  border: none;
 }
 </style>
 </head>
@@ -65,123 +40,47 @@ video {
 
 <div id="feed">
 
-  <section class="post">
-    <video src="https://streamable.com/bhdexl.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-    <div class="comments">
-      <p>melhor casal do mundo ❤️</p>
-      <p>meta de relacionamento</p>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/bhdexl?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/5qa83d.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-    <div class="comments">
-      <p>amor de verdade existe sim</p>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/5qa83d?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/chv1zt.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/chv1zt?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/kvnzbz.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/kvnzbz?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/4urpkh.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/4urpkh?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/s259io.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/s259io?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/d1jj5m.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/d1jj5m?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/uhp15l.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/uhp15l?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/340414.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/340414?autoplay=1&muted=1"></iframe>
+  </div>
 
-  <section class="post">
-    <video src="https://streamable.com/u5fc47.mp4" muted playsinline loop></video>
-    <div class="ui">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>↗</div>
-    </div>
-  </section>
+  <div class="post">
+    <iframe src="https://streamable.com/e/u5fc47?autoplay=1&muted=1"></iframe>
+  </div>
 
 </div>
-
-<script>
-const videos = document.querySelectorAll("video");
-
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.play();
-      } else {
-        entry.target.pause();
-      }
-    });
-  },
-  { threshold: 0.6 }
-);
-
-videos.forEach(video => observer.observe(video));
-</script>
 
 </body>
 </html>
